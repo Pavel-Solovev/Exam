@@ -1,0 +1,20 @@
+.scoreboardClicker {
+    margin: 10px auto;
+    width: 290px;
+    height: 100px;
+    text-align: center;
+    font-size: 80px;
+    background-color: #aaece5;
+    border: 5px solid #646873;
+
+}
+
+.buttons {
+    width: 320px;
+    height: 75px;
+    text-align: center;
+    margin: 40px auto;
+    border: 2px solid #646873;
+    border-radius: 10px;
+    background-color: #585b64;
+}

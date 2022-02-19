@@ -1,0 +1,15 @@
+.app {
+  position: relative;
+  padding: 10px;
+  background-color: #999ca1;
+  width: 350px;
+  height: 250px;
+  text-align: left;
+  font: 400 .9em 'Open Sans', sans-serif;
+  border: 1px solid #09111a;
+  border-radius: 10px;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+}
+
