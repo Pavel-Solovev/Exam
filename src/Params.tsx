@@ -8,7 +8,7 @@ type ParamsPropsType = {
     maxValue:number
     setValueMax: (value:number)=> void
     setValueMin: (value:number)=> void
-    setNumberValue:(value:number)=>void
+    setNumberValue:(value:number|null)=>void
     error:boolean
     setError:(value:boolean)=> void
 }
@@ -23,25 +23,6 @@ export const Params = ({
     const [minValueParams, setMinValueParams] = useState(0)
     const valueError = () => maxValueParams === minValueParams ? props.setError(true) : props.setError(false)
 
-    useEffect(()=>{
-        let valueAsString = localStorage.getItem('counterMaxValueParams')
-        if (valueAsString) {
-            let newValue = JSON.parse(valueAsString)
-            setMaxValueParams(newValue)
-        }
-    }, [])
-    useEffect( ()=> {
-        localStorage.setItem('counterMaxValueParams', JSON.stringify(maxValueParams))
-        valueError()
-    }, [maxValueParams, valueError])
-
-    useEffect(()=>{
-        let valueAsString = localStorage.getItem('counterMinValueParams')
-        if (valueAsString) {
-            let newValue = JSON.parse(valueAsString)
-            setMinValueParams(newValue)
-        }
-    }, [])
     useEffect( ()=> {
         localStorage.setItem('counterMinValueParams', JSON.stringify(minValueParams))
         valueError()
@@ -66,6 +47,7 @@ export const Params = ({
                 id={'MaxNumber'}
                 value={maxValueParams}
                 setValue={setMaxValueParams}
+                setNumberValue={setNumberValue}
                 min={minValueParams}
             />
             <InputNumber
@@ -73,6 +55,7 @@ export const Params = ({
                 id={'MinNumber'}
                 value={minValueParams}
                 setValue={setMinValueParams}
+                setNumberValue={setNumberValue}
                 max={maxValueParams}
             />
             <div className={s.buttons}>

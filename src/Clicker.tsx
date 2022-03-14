@@ -6,7 +6,7 @@ import s from './Clicker.module.css'
 type ClickerType = {
 
     title: string
-    numberValue: number
+    numberValue: number | null
     maxValue: number
     minValue:number
     onClick: (value: number) => void
@@ -22,10 +22,11 @@ export function Clicker({
 
 
 
-    const Plus = () => numberValue < maxValue ? props.onClick(numberValue+1) : true
-    const Minus = () => numberValue > minValue ? props.onClick(numberValue-1) : true
-    const Reset = () => numberValue >= minValue && minValue <= 0 ?
+    const Plus = () => numberValue !== null && numberValue < maxValue  && props.onClick(numberValue+1)
+    const Minus = () => numberValue !== null && numberValue > minValue && props.onClick(numberValue-1)
+    const Reset = () => numberValue !== null && numberValue >= minValue && minValue <= 0 ?
         props.onClick(0) : props.onClick(minValue)
+
 
     return (
         <div>
@@ -34,19 +35,19 @@ export function Clicker({
             </div>
             <div className={s.buttons}>
                 <Button
-                    disabled={numberValue >= maxValue || maxValue <= minValue || props.error}
+                    disabled={numberValue !== null && numberValue >= maxValue || numberValue === null || props.error}
                     name={'+'}
                     callBack={Plus}
                 />
                 <Button
-                    disabled={numberValue > maxValue || numberValue === minValue ||
-                        maxValue <= minValue || props.error}
+                    disabled={numberValue !== null &&  numberValue > maxValue || numberValue === minValue ||
+                        maxValue <= minValue || numberValue === null || props.error}
                     name={'-'}
                     callBack={Minus}
                 />
                 <Button
                     disabled={numberValue === 0 || (numberValue === minValue && numberValue > 0) ||
-                        maxValue <= minValue || props.error}
+                        maxValue <= minValue || numberValue === null || props.error}
                     name={'Reset'}
                     callBack={Reset}
                 />

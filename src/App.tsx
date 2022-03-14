@@ -4,18 +4,21 @@ import s from './App.module.css'
 import {Params} from "./Params";
 
 export function App() {
-    const [numberValue, setNumberValue] = useState<number>(0)
+    const [numberValue, setNumberValue] = useState<number|null>(null)
     const [maxValue, setMaxValue] = useState<number>(0)
     const [minValue, setMinValue] = useState<number>(0)
     const [error,  setError] = useState<boolean>(false)
 
-
-    useEffect(()=>{
-        let valueAsString = localStorage.getItem('counterValueMax')
+    const EffectForStorage = (title:string) => {
+        let valueAsString = localStorage.getItem(title)
         if (valueAsString) {
             let newValue = JSON.parse(valueAsString)
-            setMaxValue(newValue)
-        }
+            setNumberValue(newValue)
+    }
+    }
+
+    useEffect(()=>{
+        EffectForStorage('counterValueMax')
     }, [])
     useEffect( ()=> {
         localStorage.setItem('counterValueMax', JSON.stringify(maxValue))
@@ -23,11 +26,7 @@ export function App() {
 
 
     useEffect(()=>{
-        let valueAsString = localStorage.getItem('counterValueMin')
-        if (valueAsString) {
-            let newValue = JSON.parse(valueAsString)
-            setMinValue(newValue)
-        }
+        EffectForStorage('counterValueMin')
     }, [])
     useEffect( ()=> {
         localStorage.setItem('counterValueMin', JSON.stringify(minValue))
@@ -35,11 +34,7 @@ export function App() {
 
 
     useEffect(()=>{
-        let valueAsString = localStorage.getItem('counterValueNumber')
-        if (valueAsString) {
-            let newValue = JSON.parse(valueAsString)
-            setNumberValue(newValue)
-        }
+        EffectForStorage('counterValueNumber')
     }, [])
     useEffect( ()=> {
         localStorage.setItem('counterValueNumber', JSON.stringify(numberValue))
@@ -47,11 +42,7 @@ export function App() {
 
 
     useEffect(()=>{
-        let valueAsString = localStorage.getItem('counterValueError')
-        if (valueAsString) {
-            let newValue = JSON.parse(valueAsString)
-            setError(newValue)
-        }
+        EffectForStorage('counterValueError')
     }, [])
     useEffect(() => {
         localStorage.setItem('counterValueError', JSON.stringify(error))

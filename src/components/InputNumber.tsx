@@ -1,9 +1,10 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
+import React, {ChangeEvent} from 'react';
 
 type InputTypeProps= {
     label:string
     id:string
     value:number
+    setNumberValue: (value:number|null)=> void
     setValue: (value:number)=> void
     max?:number
     min?:number
@@ -12,6 +13,7 @@ type InputTypeProps= {
 export const InputNumber = (props:InputTypeProps) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         props.setValue(Number(e.currentTarget.value))
+        props.setNumberValue(null)
     }
     return (
         <div>
